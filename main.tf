@@ -143,6 +143,14 @@ resource "aws_s3_bucket_policy" "tf_backend_bucket_policy" {
 resource "aws_s3_bucket" "tf_backend_logs_bucket" {
   bucket = "${var.backend_bucket}-logs"
   acl = "log-delivery-write"
+  server_side_encryption_configuration {
+    rule {
+      bucket_key_enabled = false
+        apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
   versioning {
     enabled = true
   }
