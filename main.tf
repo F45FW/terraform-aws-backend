@@ -48,7 +48,7 @@ resource "aws_dynamodb_table" "tf_backend_state_lock_table" {
     name = "LockID"
     type = "S"
   }
-  tags {
+  tags = {
     Description = "Terraform state locking table for account ${data.aws_caller_identity.current.account_id}."
     ManagedByTerraform = "true"
     TerraformModule = "terraform-aws-backend"
@@ -70,7 +70,7 @@ resource "aws_s3_bucket" "tf_backend_bucket" {
     target_bucket = "${aws_s3_bucket.tf_backend_logs_bucket.id}"
     target_prefix = "log/"
   }
-  tags {
+  tags = {
     Description = "Terraform S3 Backend bucket which stores the terraform state for account ${data.aws_caller_identity.current.account_id}."
     ManagedByTerraform = "true"
     TerraformModule = "terraform-aws-backend"
@@ -154,7 +154,7 @@ resource "aws_s3_bucket" "tf_backend_logs_bucket" {
   versioning {
     enabled = true
   }
-  tags {
+  tags = {
     Purpose = "Logging bucket for ${var.backend_bucket}"
     ManagedByTerraform = "true"
     TerraformModule = "terraform-aws-backend"
